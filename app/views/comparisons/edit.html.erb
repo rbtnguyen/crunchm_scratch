@@ -1,0 +1,100 @@
+<div class="row">
+	<!-- search box to add another product to compare -->
+	<%= simple_form_for(@product, url: comparison_products_path(@comparison), action: :create, method: :post, defaults: { wrapper_html: {class: 'form-group'}, label_html: { class: 'centered'},input_html: { class: 'form-control url_box_md' } })  do |f| %>
+			<%#= f.simple_fields_for :products do |ff| %>
+				<%= f.input :url, label: 'Add another Amazon link to your CRUNCHm', placeholder: 'Paste here another link to an Amazon product' %>
+				<%#= f.input :products_hash, as: :hidden, input_html: {value: @crunchm} %> 
+			<%= f.button :submit, value: 'Crunchm', class: 'btn btn-warning btn-lg centered col-md-4' %>
+		<% end %>
+	<!-- <p><input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;"></p> -->
+	<% sorted = @comparison.products.order(:ranking) %>
+	<!-- Display comparison results -->
+	<table class='table table-striped draggable'>
+		<thead>
+			<tr>
+				<th></th>
+				<% @crunchm.each do |asin,values| #unless asin is the hash of attributes named tributes_all_hash %>
+					<% unless asin == :tributes_all_hash   %> <!-- because we're storing both the attributes table and the products in @crunchm -->
+						<%# gon.product_asin = asin %>
+						<th class='th <%= asin %>'>
+							<%#= @comparison.products.where(asin: asin.to_s)[0][:ranking] %> 
+							<% if asin.to_s == sorted.last.tributes.first.asin %><!-- the highest ranking product -->
+								<p>BEST MATCH</p>
+							<% end %>						 
+							<img src= <%= values['image'][:value] %>>
+							<%# content_tag 'div', id:  'glyphicon_call', data: { productAsin: asin } do %> <!-- this passes the asin to jquery -->
+								<p class='glyph_p' >
+									<% @product = Product.find_by asin: asin %>
+									<%= link_to raw('<span class: "glyphicon glyphicon-shopping-cart glyph glyph_margin""></span>'), @product, class: "glyphicon glyphicon-shopping-cart glyph glyph_margin" %>
+									<%= link_to raw('<span class: "glyphicon glyphicon-share glyph_margin"></span>'), @product, class: "glyphicon glyphicon-share glyph_margin" %>
+									<%= link_to raw('<span class: "glyphicon glyphicon-trash"></span>'), @product, :confirm => 'Are you sure?', :method => :delete, :remote=>true, :class=>'delete_product glyphicon glyphicon-trash glyph_margin', data: { asin: asin } %></p>
+							<%# end %> <!-- ends content tag -->
+						</th>
+					<% end %>
+				<% end %>
+			</tr>
+			<tr>
+				<th></th>
+				<% @crunchm.each do |asin,values| #unless asin is the hash of attributes named tributes_all_hash %>
+					<% unless asin == :tributes_all_hash   %>
+						<th class='th <%= asin %>'>					
+							<span><%= values['Title'][:value]%></span>							
+						</th>
+					<% end %>
+				<% end %>
+			</tr>
+		</thead>
+		<tbody>
+
+		<% @crunchm[:tributes_all_hash].each do |tribute, stats| %>
+			<% unless [:image, :price_data, :Title].include?(tribute) %>
+				<tr>
+					<td class='td tribute-column'><%= tribute.to_s.titleize unless [:image, :price_data].include?(tribute)  %>
+						<div class='slider-container slider-tribute'><p class='slider'></p><!--<p class='weight-value'><%#= stats[:weight] %></p>--></div>
+					</td>
+					<% @crunchm.each do |asin,values| #unless asin is the hash of attributes named tributes_all_hash %>
+						<% unless asin == :tributes_all_hash   %>
+						<% if values.has_key?(tribute.to_s) && [:image, :price_data].exclude?(tribute) && values[tribute.to_s][:value] != '0.0'%>
+							<% if tribute == :Feature %>
+								<td class='td <%= asin %>'><ul>
+									<% values[tribute.to_s][:value][2..-3].split('", "').each do |feature|%>
+									<li><%= feature %></li>
+									<% end %>
+								  </ul>
+								<div class='slider-container'><p class="slider"><%#= values[tribute.to_s][:score] %></p></div>
+								</td>	
+							<% else %>		
+								<td class='td <%= asin %>'><%= values[tribute.to_s][:value] %>	
+									<div class='slider-container'><p class="slider"><%#= values[tribute.to_s][:score] %></p></div>
+									<p></p>
+								</td>
+							<% end %>
+						<% elsif tribute == :image %>					
+							<td class='<%= asin %>'><img src= <%#= values[tribute.to_s][:value] %>></td>
+						<% elsif values.has_key?(tribute.to_s) && values[tribute.to_s][:value] == '0.0' %>
+							<td class='<%= asin %>'>N/A</td>										
+						<% else %>
+							<td class='<%= asin %>'>--</td>
+						<% end %>
+					<% end %>
+				<% end %>
+				</tr>
+			<% end %>
+		<% end %>
+		</tbody>
+	</table>
+<div style='height:500px; margin-top:500px; width:800px;'><div>
+	
+	<div>http://www.amazon.com/Samsung-Galaxy-Tab-7-Inch-Gold-Brown/dp/B00D02AG7C/ref=sr_1_3?s=electronics&ie=UTF8&qid=1386449781&sr=1-3&keywords=tablet+samsung</div>
+
+	<div>http://www.amazon.com/Sony-Xperia-SGP311U1-10-1-Inch-Tablet/dp/B00CE590Z0/ref=sr_1_1?s=electronics&ie=UTF8&qid=1386450305&sr=1-1&keywords=tablet+sony</div>
+
+	<div>http://www.amazon.com/Samsung-Galaxy-Smartwatch--Retail-Packaging/dp/B00FH9I0FQ/ref=sr_1_1?s=electronics&ie=UTF8&qid=1386967578&sr=1-1&keywords=samsung+galaxy+watch</div>
+
+	<div>http://www.amazon.com/Pebble-Smart-iPhone-Android-Devices/dp/B00EULMBZC/ref=sr_1_2?s=electronics&ie=UTF8&qid=1386967613&sr=1-2&keywords=pebble+watch</div>
+
+	<div>http://www.amazon.com/Leica-X1-12-2MP-Digital-Camera/dp/B002NX13QC/ref=sr_1_2?s=electronics&ie=UTF8&qid=1386967739&sr=1-2&keywords=nikon+cameras</div>
+
+	<div>http://www.amazon.com/Hamburger-Cheeseburger-Burger-Phone-Telephone/dp/B0016CVUR8/ref=sr_1_1?s=electronics&ie=UTF8&qid=1386967789&sr=1-1&keywords=hamburger+phone</div>
+
+</div>

@@ -1,0 +1,125 @@
+// Place all the styles related to the Comparisons controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$navbar-default-bg: #A1C5C9;
+$navbar-default-color: #fff;
+@import 'bootstrap';
+@import url(http://fonts.googleapis.com/css?family=Signika+Negative:400,600);
+
+.controls .form-control{
+	width:90%;
+}
+
+.bg-teal{
+	background-color: #A1C5C9;
+}
+
+.th {max-width:200px;}
+
+td, th, p, span {
+	max-width:200px; 
+	vertical-align: bottom;
+	text-align: center;
+}
+
+.td li {
+	text-align:left;
+}
+
+td{
+	position: relative;
+}
+
+.tribute-column {
+	text-align:left;
+	font-weight:bold;
+}
+
+
+th p {
+	text-align: center; 
+	margin: 0 auto;
+}
+
+th span {
+	text-align: center; 
+	margin: 0 auto;
+}
+
+.th {
+	border: none; 
+	text-align:center;
+}
+
+.ui-widget-content {
+	height:2px;
+}
+
+.slider-container {
+	width:160px; 
+	height:15px;
+	margin: 0 auto;
+	padding-top:5px
+}
+
+.slider {
+	width:150px;
+	position: absolute;
+	bottom: 1px;
+	height: 1px;
+}
+
+.slider-tribute{
+	margin: 0;
+ }
+
+.scroll_down{
+	margin-top: 600px;
+}
+
+.centered{
+	text-align: center;
+	margin-left: 33.33%;
+}
+
+.url_box {
+	margin-top: 30px;
+}
+
+.url_box_md {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 5px;
+}
+
+.logo{
+	height: 25px;
+	width: auto;
+}
+
+.glyph_margin {
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+.glyph_p {
+	height: 15px;
+}
+
+a.glyphicon {
+	color: #ababab;
+}
+a.glyphicon-hover {
+	color: red;
+}
+
+.crunch_font {
+	font-family: 'Signika Negative'
+}
+
+
+td .slider .ui-slider {background: #F0AD4E;}
+td .slider .ui-slider-range {background: #F0AD4E;}
+td .slider .ui-state-default {background: #fff;}
+

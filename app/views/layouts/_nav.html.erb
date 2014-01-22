@@ -1,0 +1,68 @@
+<!--#A1C5C9-->
+<nav class="navbar navbar-default bg-teal" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="bg-teal">
+  <div class="bg-teal navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand crunch_font" href="#">CRUNCHm</a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li ><%= link_to 'Start a new CRUNCHm', new_comparison_path %></li>
+      <!-- <li><a href="#">Link</a></li> -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">How to use CRUNCHm</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Investors</a></li>
+          <li class="divider"></li>
+          <!-- <li><a href="#">Separated link</a></li> -->
+          <!-- <li class="divider"></li> -->
+          <li><a href="#">Join our team</a></li>
+        </ul>
+      </li>
+    </ul>
+    <!-- search bar form -->
+    <form class="navbar-form navbar-left" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Name your crunchm">
+      </div>
+      <button type="submit" class="btn btn-default">Save</button>
+    </form>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="http://www.amazon.com" target="_blank" ><%= image_tag "amazon_logo.png", class: 'logo' %></a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort By <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Attribute Weight</a></li>
+          <li><a href="#">Product a..z</a></li>
+          <li><a href="#">Attribute a..z</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Original Search Order</a></li>
+        </ul>
+      </li>
+      <!-- User's name and logout -->
+      <% if !session[:user_id].nil? %>
+        <li><a><%= User.find_by(id: session[:user_id]).full_name %></a></li>
+        <li><%= link_to 'Logout', session_path(current_user), method: 'delete', class: 'btn btn-mini' %></li>
+      <!-- login and register -->
+      <% else %>
+        <p class="navbar-text">To SAVE your crunchm:
+        <li data-toggle="modal" data-target="#loginModal"><%= link_to 'Login', new_session_path %></li>
+        <span class="navbar-text">or</span>
+        <li data-toggle="modal" data-target="#registerModal"><%= link_to 'Register', new_user_path %></li></p> 
+      <% end %>
+      <%= render 'users/login' %>
+      <%= render 'users/register' %>
+      <!-- END login & logout  -->
+    </ul>
+  </div><!-- /.navbar-collapse --></div>
+</nav>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crunchm</title>
+    <%# include_gon %>
+    <%= stylesheet_link_tag "comparisons", media: "all", "data-turbolinks-track" => true, :cache => false %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true, :cache => false %>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <!-- <script src="dragtable.js"></script> -->
+    <!-- <script type="text/javascript" src="jquery.tablesorter.js"></script> -->
+      
+    <script>
+        $(function() {
+
+           // $( ".slider" ).each(function() {
+      // read initial values from markup and remove that
+              // var value = parseInt( $( this ).next().text(), 10 );
+              // $( ".slider").slider({
+              //   min:0,
+              //   max: 100,
+              //   value: 33,
+              //   range: "min",
+              //   orientation: "horizontal",
+              //   slide: function(event, ui){
+              //     $(".weight-value").val(ui.value);
+              //   }
+
+
+              // });
+              // $(".weight-value").val($(".slider").slider("value"));
+            
+          
+        });
+
+        $(document).ready(function(){
+
+          $( ".slider" ).each(function() {
+            $(this).slider({
+                orientation: "horizontal",
+                range: "min",
+                min: 0,
+                max: 100,
+                value: 60,
+                slide: function( event, ui ) {
+                  $(this).next().val( ui.value );
+                }
+              });
+              $(this).next().val($(this).slider( "value" ) );
+            });
+          
+          $(".slider").hide();
+           $(document).on('mouseenter','.td',function(){
+              $(this).find('.slider').fadeIn(100);
+           });
+
+            $(document).on('mouseleave','.td',function(){
+              $(this).find('.slider').fadeOut(100);
+           });
+
+            $(".glyphicon").hide();
+
+            $(document).on('mouseenter','.th',function(){
+              $(this).find('.glyphicon').fadeIn(100);
+            });
+
+            $(document).on('mouseleave','.th',function(){
+              $(this).find('.glyphicon').fadeOut(100);
+            });
+
+            // hide column that was deleted by user using ajax  !!!! note that this ignores confirmation from user !!!!
+            $('.glyphicon-trash').on('mousedown', function(){
+                var id = $(this).closest( "th" ).index()+1;
+                var col = $("table tr th:nth-child("+id+"), table tr td:nth-child("+id+")");             
+                col.fadeOut(600);
+                // console.log('inside the ajax to hide column');
+                // console.log($(this).closest( "th" ).index()+1);
+            });
+
+
+            $('a.glyphicon').hover(function () {
+                $(this).toggleClass('glyphicon-hover');
+              }, function () {
+                $(this).toggleClass('glyphicon-hover');
+            });
+            
+        });
+
+        // $(function() {
+
+        //    $('#table').tablesorter();
+        // });
+    </script>
+    <%= csrf_meta_tags %>
+
+
+
+  </head>
+  <body>
+  <div class="container">
+  	   <%= render 'layouts/nav' %>
+       <% if flash[:notice] %>
+        <p><%= flash[:notice] %></p>
+       <% end %>
+       <%= yield %>
+
+  </div>
+  </body>
+</html>
