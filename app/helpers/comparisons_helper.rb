@@ -171,9 +171,9 @@ module ComparisonsHelper
 	def vacuumAmazon(asin, product, comp)
 		request = Vacuum.new
 		request.configure(
-		    aws_access_key_id:     '',
-		    aws_secret_access_key: '',
-		    associate_tag:         ''
+		    aws_access_key_id:     #use aws access key
+		    aws_secret_access_key: #use aws secret access key
+		    associate_tag:         #crunchm-20
 		)
 		params = {
 		  'ItemId' => asin,
