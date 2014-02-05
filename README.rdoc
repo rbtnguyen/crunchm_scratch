@@ -2,6 +2,6 @@ CRUNCHm (alpha)
 
 A web application that allows users to compare any Amazon products using their URLs. A user chooses two or more products and enters in their URL into the site. Using both a web crawler and the Amazon Product Advertising API, the application provides all the important attributes and allows users to weigh the importance of each attribute so the application to decide which product is best for the particular user. 
 
-Built with Ruby on Rails, HTML5/CSS, JavaScript
+Built with Ruby on Rails, HTML5/CSS, JavaScript, NoSQL, Amazon Web Services
 
 Demo can be found here: http://crunchm.herokuapp.com/
