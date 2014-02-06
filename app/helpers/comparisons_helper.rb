@@ -175,6 +175,7 @@ module ComparisonsHelper
 		    aws_secret_access_key: #use aws secret access key
 		    associate_tag:         #crunchm-20
 		)
+		#use new access keys
 		params = {
 		  'ItemId' => asin,
 		  'ResponseGroup' => 'ItemAttributes,Images,OfferFull'
