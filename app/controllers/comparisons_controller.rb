@@ -11,6 +11,7 @@ class ComparisonsController < ApplicationController
 			end
 		else #not logged in
 			redirect_to new_comparison_path, notice: 'Login or register to save your crunchm'
+			#eventually need to allow user to crunch if not logged in
 		end
 	end
 
