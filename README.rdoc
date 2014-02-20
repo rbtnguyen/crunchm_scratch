@@ -4,4 +4,6 @@ A web application that allows users to compare any Amazon products using their U
 
 Built with Ruby on Rails, HTML5/CSS, JavaScript, NoSQL, Amazon Web Services
 
-Demo can be found here: http://crunchm.herokuapp.com/
+Under Construction.
+
+Future Demo can be found here: http://crunchm.herokuapp.com/
